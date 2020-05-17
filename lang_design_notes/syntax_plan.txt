@@ -2,8 +2,8 @@ Structures Listed Here: https://hackernoon.com/lets-build-a-programming-language
 
 Print statements
 \start\
-output('Hello world!')
-output(console, 'Hello!')
+output: 'Hello world!'
+output: console, 'Hello!'
 \end\
 - Note: 'console' specifies that we print to the shell. I think it should be a default param
 - Takes a stream for the first param and a string for the next
@@ -74,58 +74,55 @@ while: <condition>
 
 Functions
 \start\
-func <name>
-params: <datatype> <var>, <datatype> <var>
-return: <datatype> <val>
+func <name>: <datatype> <var1>, <datatype> <var2>
 {
   <more code>
+  return <value>
 }
 \end\
-- Both params and ret are implicitly none if you don't include them
-  - i.e. if you say func myFunc { <code> } (as in omitting them), code will assume you don't return
-    anything and don't require any params
-  - Same effect happens if you include the keywords but don't pass them any values
-- The value you mention in the return statement is optional -- just return a value of the same type
-  - But you can give total a value, and so long as it gets a value, it'll be returned
-    automatically
-  - Can set the default value in the return field itself? INVESTIGATE THIS
+- Don't need to specify return type, and if you don't have params, just say func myFunc: { <code> }
+  - Will have to check if the item returned if of same type as the variable it's assigned to
+  - Will also have to make sure that something is returned by the function
+    - Can also make the default none, but that would be really buggy probably
 - Calling a function looks like: var sum = <function>: <param1>, <param2>, <param3>
   - So for a function declared as:
-    func sum
-    params: int a, int b
-    return: int total
+    func sum: int a, int b
     {
-      total = a + b
+      return a + b
     }
     ---------
     The function call would be like this:
     int addedVals = sum: 3, 4
 - If you want to use different function calls in the same line, put them in parens
   - int addedVals = (sum: 3,4) + (sum: 5,6) // = 18
+- Passing in a function to another function
+  - int addedVals = sum: (sum: 3,4), (sum: 5,6)
 - Casting will just be the parens thing with the new datatype on the outside
+- Parens in general are used to indicate the use of a function, even if you don't
+  need to separate it, you can use parens to indicate a single object
 
 Classes
 \start\
-class <Name>
+class <ClassName>
 {
+  // Member variables
+  <datatype> <var> = none   // Can also set to a value
+  <datatype> <var1> = none
+
   // Constructor
-  func <Name>
-  params: int a, int b
-  return: none
+  func <ClassName>: <datatype> <param1>, <datatype> <param2>
   {
     <init code>
   }
 
   // Destructor
-  func ~<Name>
-  params: none
-  return: none
+  func ~<ClassName>:
   {
     <init code>
   }
 
   // Other member functions, public by default and private when specified
-  private func newFunc
+  private func newFunc:
   {
     <private function>
   }
@@ -135,6 +132,7 @@ class <Name>
   automatic seeing as I want to use this for data structures
 - I may not want to implement private functions at all, though that's pretty essential to OOP
   - It just seems like something that I can add later -- not as important as memory management rn
+  - For now it's okay if it's just kind of like a struct
 - May not want to implement private functions differently -- think C++ how you put all private
   functions under a certain section, or like Python where you specify it in the function name
   - Also consider abbreviating, 'priv' seems sufficient tbh
@@ -143,12 +141,8 @@ class <Name>
   - can use: class Subclass from Base { <class code> }
     - User override to override functions
     - Figure out how to specify what exactly is inherited... for now just go with all public stuff
-- All member variables should be declared in the constructor
-  - i.e. like Python's init function
-  - in this case, pretty much have to write constructor yourself, no default
 - When you don't have any params for your constructor, just don't include any
   - Should accept colon with nothing after it
-  - Should be in parens
 
 Operators
 \start\
@@ -162,38 +156,58 @@ Other Major keywords
 - out: gets out of your function, like a return statement (? Dunno if will include this)
 - this: specifies we're talking about the member var
 - It would be nice to implement operators like += and *=, after basic functionality is done
+- \: escape character -- for things like new line and such
+- use: to include packages -- equivalent of import
 
 ===================================================================
 Sample Program: sample.skhet
 ===================================================================
 class Greetings
 {
-  func Greetings
+  str x = none
+
+  // Default Constructor
+  func Greetings:
   {
-    str x = 'Hello!'
+    x = 'Hello!'
   }
-  func getMsg
-  return: str x
+  // Parametized Constructor
+  func Greetings: str newGreeting
   {
-    this.x = x
+    x = newGreeting
+  }
+  func getMsg:
+  {
+    return x
+  }
+  func setMsg: str newMsg
+  {
+    x = newMsg
   }
 }
 
 int n = 0
 Greetings obj = Greetings: // Decide whether this looks right... colon is an oof
-while: n < 5 {
-  if: n % 2 == 0 {
-    output(obj.getMsg:) // Decide whether this is right...
+while: n < 5
+{
+  if: n % 2 == 0
+  {
+    output: (obj.getMsg:), n // Decide whether this is right...
   }
-  else {
-    output('Odd!')
+  else
+  {
+    output: 'Odd!', n
   }
   n = n + 1
 }
+obj.setMsg: 'Changed it!'
+output: (obj.getMsg:)
+
 --------- Console Output ---------
-Hello!
-Odd!
-Hello!
-Odd!
-Hello!
+| Hello! 0                       |
+| Odd! 1                         |
+| Hello! 2                       |
+| Odd! 3                         |
+| Hello! 4                       |
+| Changed it!                    |
 ===================================================================
