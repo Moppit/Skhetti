@@ -1,0 +1,32 @@
+What I'm Looking To Make
+- I'm just planning to learn here, so no need for it to be mega innovative
+- I want to make something intuitive to learn -- so not like Java, more like Python
+- I want to make something that makes algorithms easy to design and test
+  - Ideally a good tool for me to use in the future when trying to think through problems
+  - So ease in creating fundamental data structures would be good
+  - Visualizations would be nice
+  - Having fundamental algorithms implemented
+- Linear algebra capabilities would be nice (mostly matrix manip)
+- Performance should be decent, doesn't need to be incredibly fast though
+- Mostly looking for basic functionality though, all the mathy stuff comes later
+- Objected oriented options would be good
+
+Think I'm going to call this Skhetti bc I expect this to be a bunch of spaghetti code,
+seeing as I have no idea what I'm doing.
+File extension is .skhet
+
+Key Decisions from considerations from https://www.freecodecamp.org/news/the-programming-language-pipeline-91d3f449c919/
+
+Compiled vs Interpreted
+https://www.freecodecamp.org/news/compiled-versus-interpreted-languages/
+https://stackoverflow.com/questions/1610539/what-are-the-pros-and-cons-of-interpreted-languages
+I'm going with interpreted here because of a few reasons.
+1) As mentioned before, performance isn't a huge priority for me -- I don't want it to be insanely slow,
+   but I don't need it to be as fast as C.
+2) Writing a compiler is kind of insane. I'm not really into working closely with hardware at the moment,
+   though it could be really fun to develop a compiled language one day. But you know, baby steps.
+3) I'm looking to make a flexible language. Based on the fact that if I use this at all, I'll mostly
+   use it to rapidly prototype, which sounds like the job of an interpreted language.
+
+Language to Develop In: C++
+It's fast and has great breadth in capability.

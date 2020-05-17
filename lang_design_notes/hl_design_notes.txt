@@ -1,0 +1,21 @@
+Process Refers To: https://www.freecodecamp.org/news/the-programming-language-pipeline-91d3f449c919/
+
+Lexing/Tokenizing
+Lexer: takes string of all source code and categorizes each component
+- Can use a lexer generator like Flex or make one myself -- think I'll roll my
+  own to see how it works
+https://medium.com/hackernoon/compilers-and-interpreters-3e354a2e41cf
+
+Parsing
+Parser: turns list of tokens into Abstract Syntax Tree (AST)
+Needs to:
+- Pay attention to structure dividers, like brackets for functions and parens for params
+  and the order of operations
+
+Action Tree
+"the AST with context"
+- A pretty complex thing -- will need to do more research
+- Running once the action tree is written is easy -- so for an interpreted language,
+  you're done when you get here
+  - All you have to do is make each node of your action tree have an execute()
+    function that does the action and returns the output

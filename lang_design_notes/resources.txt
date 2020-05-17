@@ -1,0 +1,15 @@
+- Write my own simple programming language! (Make it as close to
+pseudocode as possible… something that is easy and intuitive to use) [instead of
+print and file be separate, have input and output where you specify stream;
+shell is default, but if you add a param, you can do it with files] [use the
+CSCI 3155 notes to guide you, seem pithy and you have to read it anyway]
+    - Probably the most helpful link: https://www.freecodecamp.org/news/the-programming-language-pipeline-91d3f449c919/
+    - If you want to design something more from scratch instead of using C or C++: https://tomassetti.me/how-to-create-programming-language/
+    - Describes features to work on developing or to consider very well: https://hackernoon.com/lets-build-a-programming-language-2612349105c6
+        - Also it’s a series, so will guide through the implementation of each thing
+    - http://csci3155.cs.colorado.edu/s18/csci3155-notes.pdf
+    - https://github.com/robinroestenburg/create-your-own-programming-language
+    - https://www.toptal.com/c-plus-plus/creating-programming-language-in-c-
+    - https://dev.to/evantypanski/writing-a-simple-programming-language-from-scratch-part-1-54a2
+    - https://accu.org/index.php/journals/2252
+    - http://createyourproglang.com/

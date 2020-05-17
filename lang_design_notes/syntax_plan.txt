@@ -1,0 +1,199 @@
+Structures Listed Here: https://hackernoon.com/lets-build-a-programming-language-2612349105c6
+
+Print statements
+\start\
+output('Hello world!')
+output(console, 'Hello!')
+\end\
+- Note: 'console' specifies that we print to the shell. I think it should be a default param
+- Takes a stream for the first param and a string for the next
+  - That way, you can use the same function for console and file streams
+- Taking in any input of sorts will be input(<src>, var)
+- Should be able to print multiple items of different types
+  - i.e. output('hi', 'there', 1, 5) should print: hi there 1 5
+
+Data Types
+\start\
+int = 1
+dub = 1.0
+str = 'word'
+bool = true
+none
+<any empty var> = none
+\end\
+- No such thing as a char -- just strings of len 1
+  - When converting to ASCII, all it will check is if the str is length 1
+  - Will need 2 different toNum conversions, one to ASCII and one to num if int
+- Single quotes for strings bc I'm lazy and they're easier
+  - Consider making double quotes also viable
+- none is the equivalent of void and null
+  - This might be a mistake, should look into later when writing parser
+
+Comments
+\start\
+// Comment, bc it's the most convenient and intuitive one
+\end\
+
+Var Declaration
+\start\
+<datatype> <name> = <value>
+int x = 1
+\end\
+- var lets us know that we're using a variable
+  - Determine if you want to keep this -- I'm not sure if it'll actually be that helpful
+
+Conditionals
+\start\
+if: <condition>
+{
+  <more code>
+}
+else if: <condition>
+{
+  <more code>
+}
+else
+{
+  <more code>
+}
+\end\
+- Doesn't matter whether the brackets are on the same line or next line as condition
+- Everything after colon and before bracket is the condition
+- Consider adding a "then" keyword? Might be easier for people to learn
+
+Loops
+\start\
+while: <condition>
+{
+  <more code>
+}
+\end\
+- I don't wanna make for loops -- they're useful, but while loops can do the same thing
+- And I think the thing with learning a language is that intuitive syntax is the best thing ever,
+  and for loops just aren't that intuitive in structure
+
+Functions
+\start\
+func <name>
+params: <datatype> <var>, <datatype> <var>
+return: <datatype> <val>
+{
+  <more code>
+}
+\end\
+- Both params and ret are implicitly none if you don't include them
+  - i.e. if you say func myFunc { <code> } (as in omitting them), code will assume you don't return
+    anything and don't require any params
+  - Same effect happens if you include the keywords but don't pass them any values
+- The value you mention in the return statement is optional -- just return a value of the same type
+  - But you can give total a value, and so long as it gets a value, it'll be returned
+    automatically
+  - Can set the default value in the return field itself? INVESTIGATE THIS
+- Calling a function looks like: var sum = <function>: <param1>, <param2>, <param3>
+  - So for a function declared as:
+    func sum
+    params: int a, int b
+    return: int total
+    {
+      total = a + b
+    }
+    ---------
+    The function call would be like this:
+    int addedVals = sum: 3, 4
+- If you want to use different function calls in the same line, put them in parens
+  - int addedVals = (sum: 3,4) + (sum: 5,6) // = 18
+- Casting will just be the parens thing with the new datatype on the outside
+
+Classes
+\start\
+class <Name>
+{
+  // Constructor
+  func <Name>
+  params: int a, int b
+  return: none
+  {
+    <init code>
+  }
+
+  // Destructor
+  func ~<Name>
+  params: none
+  return: none
+  {
+    <init code>
+  }
+
+  // Other member functions, public by default and private when specified
+  private func newFunc
+  {
+    <private function>
+  }
+}
+\end\
+- Decide whether you actually want to have a destructor -- I might want to make that
+  automatic seeing as I want to use this for data structures
+- I may not want to implement private functions at all, though that's pretty essential to OOP
+  - It just seems like something that I can add later -- not as important as memory management rn
+- May not want to implement private functions differently -- think C++ how you put all private
+  functions under a certain section, or like Python where you specify it in the function name
+  - Also consider abbreviating, 'priv' seems sufficient tbh
+- Be sure to implement default constructors (unless you require one)
+- Figure out implementing inheritance later
+  - can use: class Subclass from Base { <class code> }
+    - User override to override functions
+    - Figure out how to specify what exactly is inherited... for now just go with all public stuff
+- All member variables should be declared in the constructor
+  - i.e. like Python's init function
+  - in this case, pretty much have to write constructor yourself, no default
+- When you don't have any params for your constructor, just don't include any
+  - Should accept colon with nothing after it
+  - Should be in parens
+
+Operators
+\start\
+Arithmetic: +, -, *, /, %, ^ (exp)
+Logical: ==, <=, <, >, >=, !=
+Unary operations: - (neg #'s), ! (not)
+\end\
+
+Other Major keywords
+- break: to get out of loops
+- out: gets out of your function, like a return statement (? Dunno if will include this)
+- this: specifies we're talking about the member var
+- It would be nice to implement operators like += and *=, after basic functionality is done
+
+===================================================================
+Sample Program: sample.skhet
+===================================================================
+class Greetings
+{
+  func Greetings
+  {
+    str x = 'Hello!'
+  }
+  func getMsg
+  return: str x
+  {
+    this.x = x
+  }
+}
+
+int n = 0
+Greetings obj = Greetings: // Decide whether this looks right... colon is an oof
+while: n < 5 {
+  if: n % 2 == 0 {
+    output(obj.getMsg:) // Decide whether this is right...
+  }
+  else {
+    output('Odd!')
+  }
+  n = n + 1
+}
+--------- Console Output ---------
+Hello!
+Odd!
+Hello!
+Odd!
+Hello!
+===================================================================
